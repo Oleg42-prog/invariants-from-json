@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Any
 from collections import defaultdict
+from functools import reduce
 
 
 class Invariant(Enum):
@@ -48,5 +49,9 @@ def merge_dicts(*dicts: dict[str, Invariant]) -> dict[str, Invariant]:
     return result
 
 
-def invariants_from_json(json_data: dict) -> dict[str, Invariant]:
-    raise NotImplementedError
+def invariants_from_json(json_data: list[dict]) -> dict[str, Invariant]:
+
+    if not json_data:
+        return {}
+
+    return reduce(merge_dicts, (define_invariants_of_dict(d) for d in json_data))
