@@ -33,3 +33,15 @@ def test_invariants_from_json_on_users():
     invariants = invariants_from_json(json_data)
 
     assert invariants == expected_result
+
+
+def test_invariants_from_json_on_empty_list():
+
+    json_string = '[]'
+    json_data = json.loads(json_string)
+
+    expected_result = {}
+
+    invariants = invariants_from_json(json_data)
+
+    assert invariants == expected_result
