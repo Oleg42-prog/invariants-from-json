@@ -36,3 +36,8 @@ def test_define_invariant_by_float_value(float_value: float):
 def test_define_invariant_by_empty_string_value():
     invariant = define_invariant_by_value('')
     assert invariant == Invariant.STRING_EMPTY
+
+
+def test_define_invariant_by_not_empty_string_value():
+    invariant = define_invariant_by_value('Hello, world!')
+    assert invariant == Invariant.STRING_NOT_EMPTY
