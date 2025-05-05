@@ -33,7 +33,10 @@ def define_invariant_by_value(value: Any) -> Invariant:
 
 
 def define_invariants_of_dict(dict_data: dict) -> dict[str, Invariant]:
-    raise NotImplementedError
+    return {
+        key: define_invariant_by_value(value)
+        for key, value in dict_data.items()
+    }
 
 
 def invariants_from_json(json_data: dict) -> dict[str, Invariant]:
