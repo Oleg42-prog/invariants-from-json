@@ -1,4 +1,5 @@
 import pytest
+from typing import Any
 from invariants import Invariant
 from invariants.invariant import define_invariant_by_value
 
@@ -56,3 +57,21 @@ def test_define_invariant_by_boolean_value(boolean_value: bool):
 def test_define_invariant_by_none_value():
     invariant = define_invariant_by_value(None)
     assert invariant == Invariant.LITERAL_NULL
+
+
+@pytest.mark.parametrize(
+    'unknown_value',
+    [
+        [],
+        {},
+        (1, 2, 3),
+    ],
+    ids=[
+        'define_invariant_by_unknown_value_list',
+        'define_invariant_by_unknown_value_dict',
+        'define_invariant_by_unknown_value_tuple'
+    ]
+)
+def test_define_invariant_by_unknown_value(unknown_value: Any):
+    with pytest.raises(ValueError):
+        define_invariant_by_value(unknown_value)
