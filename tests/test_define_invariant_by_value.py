@@ -51,3 +51,8 @@ def test_define_invariant_by_not_empty_string_value():
 def test_define_invariant_by_boolean_value(boolean_value: bool):
     invariant = define_invariant_by_value(boolean_value)
     assert invariant == Invariant.LITERAL_BOOLEAN
+
+
+def test_define_invariant_by_none_value():
+    invariant = define_invariant_by_value(None)
+    assert invariant == Invariant.LITERAL_NULL
