@@ -2,7 +2,7 @@ import json
 from invariants import Invariant, invariants_from_json
 
 
-def test_invariants_from_json():
+def test_invariants_from_json_on_users():
 
     json_string = '''[
         {
