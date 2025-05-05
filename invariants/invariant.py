@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 
 
 class Invariant(Enum):
@@ -13,10 +14,9 @@ class Invariant(Enum):
     LITERAL_BOOLEAN = 'literal_boolean'
 
 
+def define_invariant_by_value(value: Any) -> Invariant:
+    raise NotImplementedError
+
+
 def invariants_from_json(json_data: dict) -> dict[str, Invariant]:
-    return {
-        'name': {Invariant.STRING_NOT_EMPTY},
-        'is_admin': {Invariant.LITERAL_BOOLEAN},
-        'age': {Invariant.NUMBER_INTEGER},
-        'workPosition': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
-    }
+    raise NotImplementedError
