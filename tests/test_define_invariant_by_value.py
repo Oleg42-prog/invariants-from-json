@@ -31,3 +31,8 @@ def test_define_invariant_by_int_value(int_value: int):
 def test_define_invariant_by_float_value(float_value: float):
     invariant = define_invariant_by_value(float_value)
     assert invariant == Invariant.NUMBER_FLOAT
+
+
+def test_define_invariant_by_empty_string_value():
+    invariant = define_invariant_by_value('')
+    assert invariant == Invariant.STRING_EMPTY
