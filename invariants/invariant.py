@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import Any
+from collections import defaultdict
 
 
 class Invariant(Enum):
@@ -40,7 +41,11 @@ def define_invariants_of_dict(dict_data: dict) -> dict[str, Invariant]:
 
 
 def merge_dicts(*dicts: dict[str, Invariant]) -> dict[str, Invariant]:
-    raise NotImplementedError
+    result = defaultdict(set)
+    for d in dicts:
+        for k, v in d.items():
+            result[k].add(v)
+    return result
 
 
 def invariants_from_json(json_data: dict) -> dict[str, Invariant]:
