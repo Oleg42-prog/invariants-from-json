@@ -26,6 +26,8 @@ def define_invariant_by_value(value: Any) -> Invariant:
             return Invariant.STRING_EMPTY
         case str():
             return Invariant.STRING_NOT_EMPTY
+        case None:
+            return Invariant.LITERAL_NULL
         case _:
             raise ValueError(f'Unknown value: {value}')
 
