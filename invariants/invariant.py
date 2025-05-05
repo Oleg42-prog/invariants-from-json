@@ -32,5 +32,9 @@ def define_invariant_by_value(value: Any) -> Invariant:
             raise ValueError(f'Unknown value: {value}')
 
 
+def define_invariants_of_dict(dict_data: dict) -> dict[str, Invariant]:
+    raise NotImplementedError
+
+
 def invariants_from_json(json_data: dict) -> dict[str, Invariant]:
     raise NotImplementedError
