@@ -39,5 +39,9 @@ def define_invariants_of_dict(dict_data: dict) -> dict[str, Invariant]:
     }
 
 
+def merge_dicts(*dicts: dict[str, Invariant]) -> dict[str, Invariant]:
+    raise NotImplementedError
+
+
 def invariants_from_json(json_data: dict) -> dict[str, Invariant]:
     raise NotImplementedError
