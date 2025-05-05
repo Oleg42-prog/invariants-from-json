@@ -27,6 +27,7 @@ def test_invariants_from_json_on_users():
         'name': {Invariant.STRING_NOT_EMPTY},
         'is_admin': {Invariant.LITERAL_BOOLEAN},
         'age': {Invariant.NUMBER_INTEGER},
+        'salary': {Invariant.NUMBER_FLOAT, Invariant.LITERAL_NULL},
         'workPosition': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
     }
 
