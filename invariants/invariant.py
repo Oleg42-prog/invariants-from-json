@@ -16,6 +16,8 @@ class Invariant(Enum):
 
 def define_invariant_by_value(value: Any) -> Invariant:
     match value:
+        case bool():
+            return Invariant.LITERAL_BOOLEAN
         case int():
             return Invariant.NUMBER_INTEGER
         case float():
