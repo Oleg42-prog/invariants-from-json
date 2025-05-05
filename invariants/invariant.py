@@ -15,9 +15,13 @@ class Invariant(Enum):
 
 
 def define_invariant_by_value(value: Any) -> Invariant:
-    if isinstance(value, int):
-        return Invariant.NUMBER_INTEGER
-    raise ValueError(f'Unknown value: {value}')
+    match value:
+        case int():
+            return Invariant.NUMBER_INTEGER
+        case float():
+            return Invariant.NUMBER_FLOAT
+        case _:
+            raise ValueError(f'Unknown value: {value}')
 
 
 def invariants_from_json(json_data: dict) -> dict[str, Invariant]:
