@@ -20,6 +20,8 @@ def define_invariant_by_value(value: Any) -> Invariant:
             return Invariant.NUMBER_INTEGER
         case float():
             return Invariant.NUMBER_FLOAT
+        case '':
+            return Invariant.STRING_EMPTY
         case _:
             raise ValueError(f'Unknown value: {value}')
 
