@@ -41,3 +41,13 @@ def test_define_invariant_by_empty_string_value():
 def test_define_invariant_by_not_empty_string_value():
     invariant = define_invariant_by_value('Hello, world!')
     assert invariant == Invariant.STRING_NOT_EMPTY
+
+
+@pytest.mark.parametrize(
+    'boolean_value',
+    [True, False],
+    ids=['define_invariant_by_boolean_value_true', 'define_invariant_by_boolean_value_false']
+)
+def test_define_invariant_by_boolean_value(boolean_value: bool):
+    invariant = define_invariant_by_value(boolean_value)
+    assert invariant == Invariant.LITERAL_BOOLEAN
