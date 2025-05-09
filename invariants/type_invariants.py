@@ -15,6 +15,8 @@ class TypeInvariant(Enum):
     LITERAL_NULL = 'literal_null'
     LITERAL_BOOLEAN = 'literal_boolean'
 
+    LIST_EMPTY = 'list_empty'
+
 
 def define_type_invariant_by_value(value: Any) -> TypeInvariant:
     match value:
