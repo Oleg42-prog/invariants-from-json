@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Any
-from collections import defaultdict
 from functools import reduce
+from invariants.merge import merge_dicts_of_invariants
 
 
 class TypeInvariant(Enum):
@@ -39,27 +39,6 @@ def define_invariants_of_dict(dict_data: dict) -> dict[str, TypeInvariant]:
         key: define_invariants_of_dict(value) if isinstance(value, dict) else define_type_invariant_by_value(value)
         for key, value in dict_data.items()
     }
-
-
-def merge_dicts_of_invariants(*dicts: dict[str, Any]) -> dict[str, Any]:
-
-    result = defaultdict(set)
-
-    keys = set()
-    for d in dicts:
-        keys.update(d.keys())
-
-    for key in keys:
-        values = [d[key] for d in dicts if key in d]
-        types = set(type(v) for v in values)
-        if len(types) > 1:
-            raise ValueError(f'Types of values for key {key} are different: {types}')
-        if dict in types:
-            result[key] = merge_dicts_of_invariants(*values)
-        else:
-            result[key] |= set(values)
-
-    return result
 
 
 def invariants_from_json(json_data: list[dict]) -> dict[str, Any]:
