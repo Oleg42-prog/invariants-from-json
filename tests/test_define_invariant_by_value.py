@@ -1,7 +1,7 @@
 from typing import Any
 import pytest
 from invariants import TypeInvariant
-from invariants.invariant import define_type_invariant_by_value
+from invariants.type_invariants import define_type_invariant_by_value
 
 
 @pytest.mark.parametrize(

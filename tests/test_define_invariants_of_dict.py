@@ -1,6 +1,6 @@
 import pytest
 from invariants import TypeInvariant
-from invariants.invariant import define_invariants_of_dict
+from invariants.type_invariants import define_invariants_of_dict
 
 
 @pytest.mark.parametrize(

@@ -1,5 +1,5 @@
 from invariants import TypeInvariant
-from invariants.invariant import merge_dicts
+from invariants.type_invariants import merge_dicts
 
 
 def test_merge_dicts_on_flatten_objects():
