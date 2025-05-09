@@ -1,5 +1,5 @@
 import json
-from invariants import Invariant, invariants_from_json
+from invariants import TypeInvariant, invariants_from_json
 
 
 def test_invariants_from_json_on_flatten_objects():
@@ -24,11 +24,11 @@ def test_invariants_from_json_on_flatten_objects():
     json_data = json.loads(json_string)
 
     expected_result = {
-        'name': {Invariant.STRING_NOT_EMPTY},
-        'is_admin': {Invariant.LITERAL_BOOLEAN},
-        'age': {Invariant.NUMBER_INTEGER},
-        'salary': {Invariant.NUMBER_FLOAT, Invariant.LITERAL_NULL},
-        'workPosition': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
+        'name': {TypeInvariant.STRING_NOT_EMPTY},
+        'is_admin': {TypeInvariant.LITERAL_BOOLEAN},
+        'age': {TypeInvariant.NUMBER_INTEGER},
+        'salary': {TypeInvariant.NUMBER_FLOAT, TypeInvariant.LITERAL_NULL},
+        'workPosition': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY},
     }
 
     invariants = invariants_from_json(json_data)
@@ -81,22 +81,22 @@ def test_invariants_from_json_on_nested_objects_depth_1():
     json_data = json.loads(json_string)
 
     expected_result = {
-        'name': {Invariant.STRING_NOT_EMPTY},
-        'is_admin': {Invariant.LITERAL_BOOLEAN},
-        'age': {Invariant.NUMBER_INTEGER},
-        'salary': {Invariant.NUMBER_FLOAT, Invariant.LITERAL_NULL},
-        'workPosition': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
+        'name': {TypeInvariant.STRING_NOT_EMPTY},
+        'is_admin': {TypeInvariant.LITERAL_BOOLEAN},
+        'age': {TypeInvariant.NUMBER_INTEGER},
+        'salary': {TypeInvariant.NUMBER_FLOAT, TypeInvariant.LITERAL_NULL},
+        'workPosition': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY},
         'account': {
-            'loginAttempts': {Invariant.NUMBER_INTEGER},
-            'isBlocked': {Invariant.LITERAL_BOOLEAN},
-            'lastPasswordChange': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL},
-            'preferredLanguage': {Invariant.STRING_NOT_EMPTY},
+            'loginAttempts': {TypeInvariant.NUMBER_INTEGER},
+            'isBlocked': {TypeInvariant.LITERAL_BOOLEAN},
+            'lastPasswordChange': {TypeInvariant.STRING_NOT_EMPTY, TypeInvariant.LITERAL_NULL},
+            'preferredLanguage': {TypeInvariant.STRING_NOT_EMPTY},
         },
         'address': {
-            'city': {Invariant.STRING_NOT_EMPTY},
-            'street': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
-            'zipCode': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL},
-            'isVerified': {Invariant.LITERAL_BOOLEAN}
+            'city': {TypeInvariant.STRING_NOT_EMPTY},
+            'street': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY},
+            'zipCode': {TypeInvariant.STRING_NOT_EMPTY, TypeInvariant.LITERAL_NULL},
+            'isVerified': {TypeInvariant.LITERAL_BOOLEAN}
         }
     }
 
@@ -150,21 +150,21 @@ def test_invariants_from_json_on_nested_objects_depth_2():
     json_data = json.loads(json_string)
 
     expected_result = {
-        'name': {Invariant.STRING_NOT_EMPTY},
-        'is_admin': {Invariant.LITERAL_BOOLEAN},
-        'age': {Invariant.NUMBER_INTEGER},
-        'salary': {Invariant.NUMBER_FLOAT, Invariant.LITERAL_NULL},
-        'workPosition': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
+        'name': {TypeInvariant.STRING_NOT_EMPTY},
+        'is_admin': {TypeInvariant.LITERAL_BOOLEAN},
+        'age': {TypeInvariant.NUMBER_INTEGER},
+        'salary': {TypeInvariant.NUMBER_FLOAT, TypeInvariant.LITERAL_NULL},
+        'workPosition': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY},
         'account': {
-            'loginAttempts': {Invariant.NUMBER_INTEGER},
-            'isBlocked': {Invariant.LITERAL_BOOLEAN},
-            'lastPasswordChange': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL},
-            'preferredLanguage': {Invariant.STRING_NOT_EMPTY},
+            'loginAttempts': {TypeInvariant.NUMBER_INTEGER},
+            'isBlocked': {TypeInvariant.LITERAL_BOOLEAN},
+            'lastPasswordChange': {TypeInvariant.STRING_NOT_EMPTY, TypeInvariant.LITERAL_NULL},
+            'preferredLanguage': {TypeInvariant.STRING_NOT_EMPTY},
             'address': {
-                'city': {Invariant.STRING_NOT_EMPTY},
-                'street': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
-                'zipCode': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL},
-                'isVerified': {Invariant.LITERAL_BOOLEAN}
+                'city': {TypeInvariant.STRING_NOT_EMPTY},
+                'street': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY},
+                'zipCode': {TypeInvariant.STRING_NOT_EMPTY, TypeInvariant.LITERAL_NULL},
+                'isVerified': {TypeInvariant.LITERAL_BOOLEAN}
             }
         }
     }

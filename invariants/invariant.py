@@ -4,7 +4,7 @@ from collections import defaultdict
 from functools import reduce
 
 
-class Invariant(Enum):
+class TypeInvariant(Enum):
 
     NUMBER_INTEGER = 'number_integer'
     NUMBER_FLOAT = 'number_float'
@@ -16,25 +16,25 @@ class Invariant(Enum):
     LITERAL_BOOLEAN = 'literal_boolean'
 
 
-def define_invariant_by_value(value: Any) -> Invariant:
+def define_invariant_by_value(value: Any) -> TypeInvariant:
     match value:
         case bool():
-            return Invariant.LITERAL_BOOLEAN
+            return TypeInvariant.LITERAL_BOOLEAN
         case int():
-            return Invariant.NUMBER_INTEGER
+            return TypeInvariant.NUMBER_INTEGER
         case float():
-            return Invariant.NUMBER_FLOAT
+            return TypeInvariant.NUMBER_FLOAT
         case '':
-            return Invariant.STRING_EMPTY
+            return TypeInvariant.STRING_EMPTY
         case str():
-            return Invariant.STRING_NOT_EMPTY
+            return TypeInvariant.STRING_NOT_EMPTY
         case None:
-            return Invariant.LITERAL_NULL
+            return TypeInvariant.LITERAL_NULL
         case _:
             raise ValueError(f'Unknown value: {value}')
 
 
-def define_invariants_of_dict(dict_data: dict) -> dict[str, Invariant]:
+def define_invariants_of_dict(dict_data: dict) -> dict[str, TypeInvariant]:
     return {
         key: define_invariants_of_dict(value) if isinstance(value, dict) else define_invariant_by_value(value)
         for key, value in dict_data.items()
@@ -62,7 +62,7 @@ def merge_dicts(*dicts: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-def invariants_from_json(json_data: list[dict]) -> dict[str, Invariant]:
+def invariants_from_json(json_data: list[dict]) -> dict[str, Any]:
 
     if not json_data:
         return {}

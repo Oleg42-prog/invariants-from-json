@@ -1,4 +1,4 @@
-from invariants import Invariant
+from invariants import TypeInvariant
 from invariants.invariant import merge_dicts
 
 
@@ -6,34 +6,34 @@ def test_merge_dicts_on_flatten_objects():
 
     data = [
         {
-            "name": Invariant.STRING_NOT_EMPTY,
-            "is_admin": Invariant.LITERAL_BOOLEAN,
-            "age": Invariant.NUMBER_INTEGER,
-            "salary": Invariant.NUMBER_FLOAT,
-            "workPosition": Invariant.STRING_EMPTY
+            "name": TypeInvariant.STRING_NOT_EMPTY,
+            "is_admin": TypeInvariant.LITERAL_BOOLEAN,
+            "age": TypeInvariant.NUMBER_INTEGER,
+            "salary": TypeInvariant.NUMBER_FLOAT,
+            "workPosition": TypeInvariant.STRING_EMPTY
         },
         {
-            "name": Invariant.STRING_NOT_EMPTY,
-            "is_admin": Invariant.LITERAL_BOOLEAN,
-            "age": Invariant.NUMBER_INTEGER,
-            "salary": Invariant.LITERAL_NULL,
-            "workPosition": Invariant.STRING_NOT_EMPTY
+            "name": TypeInvariant.STRING_NOT_EMPTY,
+            "is_admin": TypeInvariant.LITERAL_BOOLEAN,
+            "age": TypeInvariant.NUMBER_INTEGER,
+            "salary": TypeInvariant.LITERAL_NULL,
+            "workPosition": TypeInvariant.STRING_NOT_EMPTY
         },
         {
-            "name": Invariant.STRING_NOT_EMPTY,
-            "is_admin": Invariant.LITERAL_BOOLEAN,
-            "age": Invariant.NUMBER_INTEGER,
-            "salary": Invariant.NUMBER_INTEGER,
-            "workPosition": Invariant.STRING_EMPTY
+            "name": TypeInvariant.STRING_NOT_EMPTY,
+            "is_admin": TypeInvariant.LITERAL_BOOLEAN,
+            "age": TypeInvariant.NUMBER_INTEGER,
+            "salary": TypeInvariant.NUMBER_INTEGER,
+            "workPosition": TypeInvariant.STRING_EMPTY
         }
     ]
 
     expected_result = {
-        'name': {Invariant.STRING_NOT_EMPTY},
-        'is_admin': {Invariant.LITERAL_BOOLEAN},
-        'age': {Invariant.NUMBER_INTEGER},
-        'salary': {Invariant.NUMBER_FLOAT, Invariant.LITERAL_NULL, Invariant.NUMBER_INTEGER},
-        'workPosition': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY}
+        'name': {TypeInvariant.STRING_NOT_EMPTY},
+        'is_admin': {TypeInvariant.LITERAL_BOOLEAN},
+        'age': {TypeInvariant.NUMBER_INTEGER},
+        'salary': {TypeInvariant.NUMBER_FLOAT, TypeInvariant.LITERAL_NULL, TypeInvariant.NUMBER_INTEGER},
+        'workPosition': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY}
     }
 
     actual_result = merge_dicts(*data)
@@ -43,47 +43,47 @@ def test_merge_dicts_on_flatten_objects():
 def test_merge_dicts_on_nested_objects_depth_1():
     data = [
         {
-            "name": Invariant.STRING_NOT_EMPTY,
+            "name": TypeInvariant.STRING_NOT_EMPTY,
             "account": {
-                "loginAttempts": Invariant.NUMBER_INTEGER,
-                "isBlocked": Invariant.LITERAL_BOOLEAN,
-                "lastPasswordChange": Invariant.STRING_NOT_EMPTY,
-                "preferredLanguage": Invariant.STRING_NOT_EMPTY
+                "loginAttempts": TypeInvariant.NUMBER_INTEGER,
+                "isBlocked": TypeInvariant.LITERAL_BOOLEAN,
+                "lastPasswordChange": TypeInvariant.STRING_NOT_EMPTY,
+                "preferredLanguage": TypeInvariant.STRING_NOT_EMPTY
             },
             "address": {
-                "city": Invariant.STRING_NOT_EMPTY,
-                "street": Invariant.STRING_NOT_EMPTY,
-                "zipCode": Invariant.STRING_NOT_EMPTY
+                "city": TypeInvariant.STRING_NOT_EMPTY,
+                "street": TypeInvariant.STRING_NOT_EMPTY,
+                "zipCode": TypeInvariant.STRING_NOT_EMPTY
             }
         },
         {
-            "name": Invariant.STRING_NOT_EMPTY,
+            "name": TypeInvariant.STRING_NOT_EMPTY,
             "account": {
-                "loginAttempts": Invariant.NUMBER_INTEGER,
-                "isBlocked": Invariant.LITERAL_BOOLEAN,
-                "lastPasswordChange": Invariant.LITERAL_NULL,
-                "preferredLanguage": Invariant.STRING_NOT_EMPTY
+                "loginAttempts": TypeInvariant.NUMBER_INTEGER,
+                "isBlocked": TypeInvariant.LITERAL_BOOLEAN,
+                "lastPasswordChange": TypeInvariant.LITERAL_NULL,
+                "preferredLanguage": TypeInvariant.STRING_NOT_EMPTY
             },
             "address": {
-                "city": Invariant.STRING_NOT_EMPTY,
-                "street": Invariant.STRING_EMPTY,
-                "zipCode": Invariant.LITERAL_NULL
+                "city": TypeInvariant.STRING_NOT_EMPTY,
+                "street": TypeInvariant.STRING_EMPTY,
+                "zipCode": TypeInvariant.LITERAL_NULL
             }
         }
     ]
 
     expected_result = {
-        'name': {Invariant.STRING_NOT_EMPTY},
+        'name': {TypeInvariant.STRING_NOT_EMPTY},
         'account': {
-            'loginAttempts': {Invariant.NUMBER_INTEGER},
-            'isBlocked': {Invariant.LITERAL_BOOLEAN},
-            'lastPasswordChange': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL},
-            'preferredLanguage': {Invariant.STRING_NOT_EMPTY}
+            'loginAttempts': {TypeInvariant.NUMBER_INTEGER},
+            'isBlocked': {TypeInvariant.LITERAL_BOOLEAN},
+            'lastPasswordChange': {TypeInvariant.STRING_NOT_EMPTY, TypeInvariant.LITERAL_NULL},
+            'preferredLanguage': {TypeInvariant.STRING_NOT_EMPTY}
         },
         'address': {
-            'city': {Invariant.STRING_NOT_EMPTY},
-            'street': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
-            'zipCode': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL}
+            'city': {TypeInvariant.STRING_NOT_EMPTY},
+            'street': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY},
+            'zipCode': {TypeInvariant.STRING_NOT_EMPTY, TypeInvariant.LITERAL_NULL}
         }
     }
 
@@ -94,46 +94,46 @@ def test_merge_dicts_on_nested_objects_depth_1():
 def test_merge_dicts_on_nested_objects_depth_2():
     data = [
         {
-            "name": Invariant.STRING_NOT_EMPTY,
+            "name": TypeInvariant.STRING_NOT_EMPTY,
             "account": {
-                "loginAttempts": Invariant.NUMBER_INTEGER,
-                "isBlocked": Invariant.LITERAL_BOOLEAN,
-                "lastPasswordChange": Invariant.STRING_NOT_EMPTY,
-                "preferredLanguage": Invariant.STRING_NOT_EMPTY,
+                "loginAttempts": TypeInvariant.NUMBER_INTEGER,
+                "isBlocked": TypeInvariant.LITERAL_BOOLEAN,
+                "lastPasswordChange": TypeInvariant.STRING_NOT_EMPTY,
+                "preferredLanguage": TypeInvariant.STRING_NOT_EMPTY,
                 "address": {
-                    "city": Invariant.STRING_NOT_EMPTY,
-                    "street": Invariant.STRING_NOT_EMPTY,
-                    "zipCode": Invariant.STRING_NOT_EMPTY
+                    "city": TypeInvariant.STRING_NOT_EMPTY,
+                    "street": TypeInvariant.STRING_NOT_EMPTY,
+                    "zipCode": TypeInvariant.STRING_NOT_EMPTY
                 }
             }
         },
         {
-            "name": Invariant.STRING_NOT_EMPTY,
+            "name": TypeInvariant.STRING_NOT_EMPTY,
             "account": {
-                "loginAttempts": Invariant.NUMBER_INTEGER,
-                "isBlocked": Invariant.LITERAL_BOOLEAN,
-                "lastPasswordChange": Invariant.LITERAL_NULL,
-                "preferredLanguage": Invariant.STRING_NOT_EMPTY,
+                "loginAttempts": TypeInvariant.NUMBER_INTEGER,
+                "isBlocked": TypeInvariant.LITERAL_BOOLEAN,
+                "lastPasswordChange": TypeInvariant.LITERAL_NULL,
+                "preferredLanguage": TypeInvariant.STRING_NOT_EMPTY,
                 "address": {
-                    "city": Invariant.STRING_NOT_EMPTY,
-                    "street": Invariant.STRING_EMPTY,
-                    "zipCode": Invariant.LITERAL_NULL
+                    "city": TypeInvariant.STRING_NOT_EMPTY,
+                    "street": TypeInvariant.STRING_EMPTY,
+                    "zipCode": TypeInvariant.LITERAL_NULL
                 }
             }
         }
     ]
 
     expected_result = {
-        'name': {Invariant.STRING_NOT_EMPTY},
+        'name': {TypeInvariant.STRING_NOT_EMPTY},
         'account': {
-            'loginAttempts': {Invariant.NUMBER_INTEGER},
-            'isBlocked': {Invariant.LITERAL_BOOLEAN},
-            'lastPasswordChange': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL},
-            'preferredLanguage': {Invariant.STRING_NOT_EMPTY},
+            'loginAttempts': {TypeInvariant.NUMBER_INTEGER},
+            'isBlocked': {TypeInvariant.LITERAL_BOOLEAN},
+            'lastPasswordChange': {TypeInvariant.STRING_NOT_EMPTY, TypeInvariant.LITERAL_NULL},
+            'preferredLanguage': {TypeInvariant.STRING_NOT_EMPTY},
             'address': {
-                'city': {Invariant.STRING_NOT_EMPTY},
-                'street': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
-                'zipCode': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL}
+                'city': {TypeInvariant.STRING_NOT_EMPTY},
+                'street': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY},
+                'zipCode': {TypeInvariant.STRING_NOT_EMPTY, TypeInvariant.LITERAL_NULL}
             }
         }
     }

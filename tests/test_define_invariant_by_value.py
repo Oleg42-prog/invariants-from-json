@@ -1,6 +1,6 @@
 import pytest
 from typing import Any
-from invariants import Invariant
+from invariants import TypeInvariant
 from invariants.invariant import define_invariant_by_value
 
 
@@ -15,7 +15,7 @@ from invariants.invariant import define_invariant_by_value
 )
 def test_define_invariant_by_int_value(int_value: int):
     invariant = define_invariant_by_value(int_value)
-    assert invariant == Invariant.NUMBER_INTEGER
+    assert invariant == TypeInvariant.NUMBER_INTEGER
 
 
 @pytest.mark.parametrize(
@@ -31,17 +31,17 @@ def test_define_invariant_by_int_value(int_value: int):
 )
 def test_define_invariant_by_float_value(float_value: float):
     invariant = define_invariant_by_value(float_value)
-    assert invariant == Invariant.NUMBER_FLOAT
+    assert invariant == TypeInvariant.NUMBER_FLOAT
 
 
 def test_define_invariant_by_empty_string_value():
     invariant = define_invariant_by_value('')
-    assert invariant == Invariant.STRING_EMPTY
+    assert invariant == TypeInvariant.STRING_EMPTY
 
 
 def test_define_invariant_by_not_empty_string_value():
     invariant = define_invariant_by_value('Hello, world!')
-    assert invariant == Invariant.STRING_NOT_EMPTY
+    assert invariant == TypeInvariant.STRING_NOT_EMPTY
 
 
 @pytest.mark.parametrize(
@@ -51,12 +51,12 @@ def test_define_invariant_by_not_empty_string_value():
 )
 def test_define_invariant_by_boolean_value(boolean_value: bool):
     invariant = define_invariant_by_value(boolean_value)
-    assert invariant == Invariant.LITERAL_BOOLEAN
+    assert invariant == TypeInvariant.LITERAL_BOOLEAN
 
 
 def test_define_invariant_by_none_value():
     invariant = define_invariant_by_value(None)
-    assert invariant == Invariant.LITERAL_NULL
+    assert invariant == TypeInvariant.LITERAL_NULL
 
 
 @pytest.mark.parametrize(
