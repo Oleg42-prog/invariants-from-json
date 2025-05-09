@@ -44,10 +44,10 @@ from invariants.invariant import define_invariants_of_dict
         )
     ],
     ids=[
-        'define_invariants_of_dict_on_user',
-        'define_invariants_of_dict_on_user_with_none_value',
+        'define_invariants_of_dict_on_flatten_objects',
+        'define_invariants_of_dict_on_flatten_objects_with_none_value',
         'define_invariants_of_dict_on_empty_dict'
     ]
 )
-def test_define_invariants_of_dict_on_users(dict_data: dict, expected_result: dict):
+def test_define_invariants_of_dict_on_flatten_objects(dict_data: dict, expected_result: dict):
     assert define_invariants_of_dict(dict_data) == expected_result
