@@ -1,8 +1,8 @@
 import json
-from invariants import TypeInvariant, invariants_from_json
+from invariants import TypeInvariant, type_invariants_from_json
 
 
-def test_invariants_from_json_on_flatten_objects():
+def test_type_invariants_from_json_on_flatten_objects():
 
     json_string = '''[
         {
@@ -31,12 +31,12 @@ def test_invariants_from_json_on_flatten_objects():
         'workPosition': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY},
     }
 
-    invariants = invariants_from_json(json_data)
+    actual_result = type_invariants_from_json(json_data)
 
-    assert invariants == expected_result
+    assert actual_result == expected_result
 
 
-def test_invariants_from_json_on_nested_objects_depth_1():
+def test_type_invariants_from_json_on_nested_objects_depth_1():
     json_string = '''[
         {
             "name": "Wilfred Snow",
@@ -100,12 +100,12 @@ def test_invariants_from_json_on_nested_objects_depth_1():
         }
     }
 
-    invariants = invariants_from_json(json_data)
+    actual_result = type_invariants_from_json(json_data)
 
-    assert invariants == expected_result
+    assert actual_result == expected_result
 
 
-def test_invariants_from_json_on_nested_objects_depth_2():
+def test_type_invariants_from_json_on_nested_objects_depth_2():
     json_string = '''[
         {
             "name": "Wilfred Snow",
@@ -169,18 +169,18 @@ def test_invariants_from_json_on_nested_objects_depth_2():
         }
     }
 
-    invariants = invariants_from_json(json_data)
+    actual_result = type_invariants_from_json(json_data)
 
-    assert invariants == expected_result
+    assert actual_result == expected_result
 
 
-def test_invariants_from_json_on_empty_list():
+def test_type_invariants_from_json_on_empty_list():
 
     json_string = '[]'
     json_data = json.loads(json_string)
 
     expected_result = {}
 
-    invariants = invariants_from_json(json_data)
+    actual_result = type_invariants_from_json(json_data)
 
-    assert invariants == expected_result
+    assert actual_result == expected_result

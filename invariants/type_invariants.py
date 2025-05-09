@@ -41,7 +41,7 @@ def define_invariants_of_dict(dict_data: dict) -> dict[str, TypeInvariant]:
     }
 
 
-def invariants_from_json(json_data: list[dict]) -> dict[str, Any]:
+def type_invariants_from_json(json_data: list[dict]) -> dict[str, Any]:
 
     if not json_data:
         return {}

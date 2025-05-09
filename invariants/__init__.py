@@ -1,6 +1,6 @@
-from invariants.type_invariants import TypeInvariant, invariants_from_json
+from invariants.type_invariants import TypeInvariant, type_invariants_from_json
 
 __all__ = [
     'TypeInvariant',
-    'invariants_from_json'
+    'type_invariants_from_json'
 ]
