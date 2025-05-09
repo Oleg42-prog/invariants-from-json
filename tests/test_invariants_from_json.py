@@ -36,6 +36,75 @@ def test_invariants_from_json_on_flatten_objects():
     assert invariants == expected_result
 
 
+def test_invariants_from_json_on_nested_objects_depth_1():
+    json_string = '''[
+        {
+            "name": "Wilfred Snow",
+            "is_admin": true,
+            "age": 25,
+            "salary": 125.25,
+            "workPosition": "",
+            "account": {
+                "loginAttempts": 3,
+                "isBlocked": false,
+                "lastPasswordChange": "2024-03-15",
+                "preferredLanguage": "ru"
+            },
+            "address": {
+                "city": "Moscow",
+                "street": "Lenina 1",
+                "zipCode": "123456",
+                "isVerified": true
+            }
+        },
+        {
+            "name": "Eva Kemp",
+            "is_admin": false,
+            "age": 16,
+            "salary": null,
+            "workPosition": "Developer",
+            "account": {
+                "loginAttempts": 0,
+                "isBlocked": true,
+                "lastPasswordChange": null,
+                "preferredLanguage": "en"
+            },
+            "address": {
+                "city": "Saint Petersburg",
+                "street": "",
+                "zipCode": null,
+                "isVerified": false
+            }
+        }
+    ]
+    '''
+    json_data = json.loads(json_string)
+
+    expected_result = {
+        'name': {Invariant.STRING_NOT_EMPTY},
+        'is_admin': {Invariant.LITERAL_BOOLEAN},
+        'age': {Invariant.NUMBER_INTEGER},
+        'salary': {Invariant.NUMBER_FLOAT, Invariant.LITERAL_NULL},
+        'workPosition': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
+        'account': {
+            'loginAttempts': {Invariant.NUMBER_INTEGER},
+            'isBlocked': {Invariant.LITERAL_BOOLEAN},
+            'lastPasswordChange': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL},
+            'preferredLanguage': {Invariant.STRING_NOT_EMPTY},
+        },
+        'address': {
+            'city': {Invariant.STRING_NOT_EMPTY},
+            'street': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
+            'zipCode': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL},
+            'isVerified': {Invariant.LITERAL_BOOLEAN}
+        }
+    }
+
+    invariants = invariants_from_json(json_data)
+
+    assert invariants == expected_result
+
+
 def test_invariants_from_json_on_empty_list():
 
     json_string = '[]'
