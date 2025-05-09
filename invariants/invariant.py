@@ -36,7 +36,7 @@ def define_invariant_by_value(value: Any) -> Invariant:
 
 def define_invariants_of_dict(dict_data: dict) -> dict[str, Invariant]:
     return {
-        key: define_invariant_by_value(value)
+        key: define_invariants_of_dict(value) if isinstance(value, dict) else define_invariant_by_value(value)
         for key, value in dict_data.items()
     }
 
