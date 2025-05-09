@@ -17,6 +17,8 @@ def merge_dicts_of_invariants(*dicts: dict[str, Any]) -> dict[str, Any]:
             raise ValueError(f'Types of values for key {key} are different: {types}')
         if dict in types:
             result[key] = merge_dicts_of_invariants(*values)
+        elif list in types:
+            result[key] = list(dict.fromkeys(sum(values, [])))
         else:
             result[key] |= set(values)
 
