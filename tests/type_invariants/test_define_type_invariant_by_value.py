@@ -62,12 +62,10 @@ def test_define_type_invariant_by_none_value():
 @pytest.mark.parametrize(
     'unknown_value',
     [
-        [],
         {},
         (1, 2, 3),
     ],
     ids=[
-        'define_type_invariant_by_unknown_value_list',
         'define_type_invariant_by_unknown_value_dict',
         'define_type_invariant_by_unknown_value_tuple'
     ]
@@ -75,3 +73,33 @@ def test_define_type_invariant_by_none_value():
 def test_define_type_invariant_by_unknown_value(unknown_value: Any):
     with pytest.raises(ValueError):
         define_type_invariant_by_value(unknown_value)
+
+
+@pytest.mark.parametrize(
+    'list_value, expected_result',
+    [
+        ([], [TypeInvariant.LIST_EMPTY]),
+        ([1, 2, 3], [TypeInvariant.NUMBER_INTEGER]),
+        ([None, ''], [TypeInvariant.LITERAL_NULL, TypeInvariant.STRING_EMPTY]),
+        ([50.5, 125.5], [TypeInvariant.NUMBER_FLOAT]),
+        ([True, False], [TypeInvariant.LITERAL_BOOLEAN]),
+        (['Python', 'SQL', 'Git'], [TypeInvariant.STRING_NOT_EMPTY]),
+        (['English', 'Russian', ''], [TypeInvariant.STRING_NOT_EMPTY, TypeInvariant.STRING_EMPTY]),
+        ([100, 120.5, 150.75], [TypeInvariant.NUMBER_INTEGER, TypeInvariant.NUMBER_FLOAT]),
+        ([None, 125.5], [TypeInvariant.LITERAL_NULL, TypeInvariant.NUMBER_FLOAT])
+    ],
+    ids=[
+        'define_type_invariant_by_list_value_empty',
+        'define_type_invariant_by_list_value_with_integers',
+        'define_type_invariant_by_list_value_with_none_and_empty_string',
+        'define_type_invariant_by_list_value_with_floats',
+        'define_type_invariant_by_list_value_with_booleans',
+        'define_type_invariant_by_list_value_with_not_empty_strings',
+        'define_type_invariant_by_list_value_with_empty_strings',
+        'define_type_invariant_by_list_value_with_integers_and_floats',
+        'define_type_invariant_by_list_value_with_none_and_floats'
+    ]
+)
+def test_define_type_invariant_by_list_value(list_value: list, expected_result: list[TypeInvariant]):
+    invariant = define_type_invariant_by_value(list_value)
+    assert invariant == expected_result
