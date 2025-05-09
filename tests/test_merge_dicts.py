@@ -1,8 +1,8 @@
 from invariants import TypeInvariant
-from invariants.type_invariants import merge_dicts
+from invariants.type_invariants import merge_dicts_of_invariants
 
 
-def test_merge_dicts_on_flatten_objects():
+def test_merge_dicts_of_invariants_on_flatten_objects():
 
     data = [
         {
@@ -36,11 +36,11 @@ def test_merge_dicts_on_flatten_objects():
         'workPosition': {TypeInvariant.STRING_EMPTY, TypeInvariant.STRING_NOT_EMPTY}
     }
 
-    actual_result = merge_dicts(*data)
+    actual_result = merge_dicts_of_invariants(*data)
     assert actual_result == expected_result
 
 
-def test_merge_dicts_on_nested_objects_depth_1():
+def test_merge_dicts_of_invariants_on_nested_objects_depth_1():
     data = [
         {
             "name": TypeInvariant.STRING_NOT_EMPTY,
@@ -87,11 +87,11 @@ def test_merge_dicts_on_nested_objects_depth_1():
         }
     }
 
-    actual_result = merge_dicts(*data)
+    actual_result = merge_dicts_of_invariants(*data)
     assert actual_result == expected_result
 
 
-def test_merge_dicts_on_nested_objects_depth_2():
+def test_merge_dicts_of_invariants_on_nested_objects_depth_2():
     data = [
         {
             "name": TypeInvariant.STRING_NOT_EMPTY,
@@ -138,5 +138,5 @@ def test_merge_dicts_on_nested_objects_depth_2():
         }
     }
 
-    actual_result = merge_dicts(*data)
+    actual_result = merge_dicts_of_invariants(*data)
     assert actual_result == expected_result

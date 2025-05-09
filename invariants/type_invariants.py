@@ -41,7 +41,7 @@ def define_invariants_of_dict(dict_data: dict) -> dict[str, TypeInvariant]:
     }
 
 
-def merge_dicts(*dicts: dict[str, Any]) -> dict[str, Any]:
+def merge_dicts_of_invariants(*dicts: dict[str, Any]) -> dict[str, Any]:
 
     result = defaultdict(set)
 
@@ -55,7 +55,7 @@ def merge_dicts(*dicts: dict[str, Any]) -> dict[str, Any]:
         if len(types) > 1:
             raise ValueError(f'Types of values for key {key} are different: {types}')
         if dict in types:
-            result[key] = merge_dicts(*values)
+            result[key] = merge_dicts_of_invariants(*values)
         else:
             result[key] |= set(values)
 
@@ -67,4 +67,4 @@ def invariants_from_json(json_data: list[dict]) -> dict[str, Any]:
     if not json_data:
         return {}
 
-    return reduce(merge_dicts, (define_invariants_of_dict(d) for d in json_data))
+    return reduce(merge_dicts_of_invariants, (define_invariants_of_dict(d) for d in json_data))
