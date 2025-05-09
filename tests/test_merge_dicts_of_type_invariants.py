@@ -2,7 +2,7 @@ from invariants import TypeInvariant
 from invariants.merge import merge_dicts_of_invariants
 
 
-def test_merge_dicts_of_invariants_on_flatten_objects():
+def test_merge_dicts_of_type_invariants_on_flatten_objects():
 
     data = [
         {
@@ -40,7 +40,7 @@ def test_merge_dicts_of_invariants_on_flatten_objects():
     assert actual_result == expected_result
 
 
-def test_merge_dicts_of_invariants_on_nested_objects_depth_1():
+def test_merge_dicts_of_type_invariants_on_nested_objects_depth_1():
     data = [
         {
             "name": TypeInvariant.STRING_NOT_EMPTY,
@@ -91,7 +91,7 @@ def test_merge_dicts_of_invariants_on_nested_objects_depth_1():
     assert actual_result == expected_result
 
 
-def test_merge_dicts_of_invariants_on_nested_objects_depth_2():
+def test_merge_dicts_of_type_invariants_on_nested_objects_depth_2():
     data = [
         {
             "name": TypeInvariant.STRING_NOT_EMPTY,
