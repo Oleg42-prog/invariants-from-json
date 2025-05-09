@@ -34,9 +34,9 @@ def define_type_invariant_by_value(value: Any) -> TypeInvariant:
             raise ValueError(f'Unknown value: {value}')
 
 
-def define_invariants_of_dict(dict_data: dict) -> dict[str, TypeInvariant]:
+def define_type_invariants_of_dict(dict_data: dict) -> dict[str, TypeInvariant]:
     return {
-        key: define_invariants_of_dict(value) if isinstance(value, dict) else define_type_invariant_by_value(value)
+        key: define_type_invariants_of_dict(value) if isinstance(value, dict) else define_type_invariant_by_value(value)
         for key, value in dict_data.items()
     }
 
@@ -46,4 +46,4 @@ def type_invariants_from_json(json_data: list[dict]) -> dict[str, Any]:
     if not json_data:
         return {}
 
-    return reduce(merge_dicts_of_invariants, (define_invariants_of_dict(d) for d in json_data))
+    return reduce(merge_dicts_of_invariants, (define_type_invariants_of_dict(d) for d in json_data))

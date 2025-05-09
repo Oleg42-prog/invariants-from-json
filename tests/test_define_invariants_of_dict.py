@@ -1,6 +1,6 @@
 import pytest
 from invariants import TypeInvariant
-from invariants.type_invariants import define_invariants_of_dict
+from invariants.type_invariants import define_type_invariants_of_dict
 
 
 @pytest.mark.parametrize(
@@ -44,13 +44,13 @@ from invariants.type_invariants import define_invariants_of_dict
         )
     ],
     ids=[
-        'define_invariants_of_dict_on_flatten_objects',
-        'define_invariants_of_dict_on_flatten_objects_with_none_value',
-        'define_invariants_of_dict_on_empty_dict'
+        'define_type_invariants_of_dict_on_flatten_objects',
+        'define_type_invariants_of_dict_on_flatten_objects_with_none_value',
+        'define_type_invariants_of_dict_on_empty_dict'
     ]
 )
-def test_define_invariants_of_dict_on_flatten_objects(dict_data: dict, expected_result: dict):
-    assert define_invariants_of_dict(dict_data) == expected_result
+def test_define_type_invariants_of_dict_on_flatten_objects(dict_data: dict, expected_result: dict):
+    assert define_type_invariants_of_dict(dict_data) == expected_result
 
 
 @pytest.mark.parametrize(
@@ -122,12 +122,12 @@ def test_define_invariants_of_dict_on_flatten_objects(dict_data: dict, expected_
         )
     ],
     ids=[
-        'define_invariants_of_dict_on_nested_objects_depth_1',
-        'define_invariants_of_dict_on_nested_objects_depth_1_with_none_value'
+        'define_type_invariants_of_dict_on_nested_objects_depth_1',
+        'define_type_invariants_of_dict_on_nested_objects_depth_1_with_none_value'
     ]
 )
-def test_define_invariants_of_dict_on_nested_objects_depth_1(dict_data: dict, expected_result: dict):
-    assert define_invariants_of_dict(dict_data) == expected_result
+def test_define_type_invariants_of_dict_on_nested_objects_depth_1(dict_data: dict, expected_result: dict):
+    assert define_type_invariants_of_dict(dict_data) == expected_result
 
 
 @pytest.mark.parametrize(
@@ -199,9 +199,9 @@ def test_define_invariants_of_dict_on_nested_objects_depth_1(dict_data: dict, ex
         )
     ],
     ids=[
-        'define_invariants_of_dict_on_nested_objects_depth_2',
-        'define_invariants_of_dict_on_nested_objects_depth_2_with_none_value'
+        'define_type_invariants_of_dict_on_nested_objects_depth_2',
+        'define_type_invariants_of_dict_on_nested_objects_depth_2_with_none_value'
     ]
 )
-def test_define_invariants_of_dict_on_nested_objects_depth_2(dict_data: dict, expected_result: dict):
-    assert define_invariants_of_dict(dict_data) == expected_result
+def test_define_type_invariants_of_dict_on_nested_objects_depth_2(dict_data: dict, expected_result: dict):
+    assert define_type_invariants_of_dict(dict_data) == expected_result
