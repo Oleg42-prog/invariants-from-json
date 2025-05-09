@@ -2,7 +2,7 @@ from invariants import Invariant
 from invariants.invariant import merge_dicts
 
 
-def test_merge_dicts():
+def test_merge_dicts_on_flatten_objects():
 
     data = [
         {
