@@ -41,11 +41,24 @@ def define_invariants_of_dict(dict_data: dict) -> dict[str, Invariant]:
     }
 
 
-def merge_dicts(*dicts: dict[str, Invariant]) -> dict[str, Invariant]:
+def merge_dicts(*dicts: dict[str, Any]) -> dict[str, Any]:
+
     result = defaultdict(set)
+
+    keys = set()
     for d in dicts:
-        for k, v in d.items():
-            result[k].add(v)
+        keys.update(d.keys())
+
+    for key in keys:
+        values = [d[key] for d in dicts if key in d]
+        types = set(type(v) for v in values)
+        if len(types) > 1:
+            raise ValueError(f'Types of values for key {key} are different: {types}')
+        if dict in types:
+            result[key] = merge_dicts(*values)
+        else:
+            result[key] |= set(values)
+
     return result
 
 
