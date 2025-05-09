@@ -28,10 +28,14 @@ def define_type_invariant_by_value(value: Any) -> TypeInvariant:
             return TypeInvariant.NUMBER_FLOAT
         case '':
             return TypeInvariant.STRING_EMPTY
+        case []:
+            return [TypeInvariant.LIST_EMPTY]
         case str():
             return TypeInvariant.STRING_NOT_EMPTY
         case None:
             return TypeInvariant.LITERAL_NULL
+        case list():
+            return list(dict.fromkeys(map(define_type_invariant_by_value, value)))
         case _:
             raise ValueError(f'Unknown value: {value}')
 
