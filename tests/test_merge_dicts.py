@@ -89,3 +89,54 @@ def test_merge_dicts_on_nested_objects_depth_1():
 
     actual_result = merge_dicts(*data)
     assert actual_result == expected_result
+
+
+def test_merge_dicts_on_nested_objects_depth_2():
+    data = [
+        {
+            "name": Invariant.STRING_NOT_EMPTY,
+            "account": {
+                "loginAttempts": Invariant.NUMBER_INTEGER,
+                "isBlocked": Invariant.LITERAL_BOOLEAN,
+                "lastPasswordChange": Invariant.STRING_NOT_EMPTY,
+                "preferredLanguage": Invariant.STRING_NOT_EMPTY,
+                "address": {
+                    "city": Invariant.STRING_NOT_EMPTY,
+                    "street": Invariant.STRING_NOT_EMPTY,
+                    "zipCode": Invariant.STRING_NOT_EMPTY
+                }
+            }
+        },
+        {
+            "name": Invariant.STRING_NOT_EMPTY,
+            "account": {
+                "loginAttempts": Invariant.NUMBER_INTEGER,
+                "isBlocked": Invariant.LITERAL_BOOLEAN,
+                "lastPasswordChange": Invariant.LITERAL_NULL,
+                "preferredLanguage": Invariant.STRING_NOT_EMPTY,
+                "address": {
+                    "city": Invariant.STRING_NOT_EMPTY,
+                    "street": Invariant.STRING_EMPTY,
+                    "zipCode": Invariant.LITERAL_NULL
+                }
+            }
+        }
+    ]
+
+    expected_result = {
+        'name': {Invariant.STRING_NOT_EMPTY},
+        'account': {
+            'loginAttempts': {Invariant.NUMBER_INTEGER},
+            'isBlocked': {Invariant.LITERAL_BOOLEAN},
+            'lastPasswordChange': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL},
+            'preferredLanguage': {Invariant.STRING_NOT_EMPTY},
+            'address': {
+                'city': {Invariant.STRING_NOT_EMPTY},
+                'street': {Invariant.STRING_EMPTY, Invariant.STRING_NOT_EMPTY},
+                'zipCode': {Invariant.STRING_NOT_EMPTY, Invariant.LITERAL_NULL}
+            }
+        }
+    }
+
+    actual_result = merge_dicts(*data)
+    assert actual_result == expected_result
