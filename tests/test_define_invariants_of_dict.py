@@ -128,3 +128,80 @@ def test_define_invariants_of_dict_on_flatten_objects(dict_data: dict, expected_
 )
 def test_define_invariants_of_dict_on_nested_objects_depth_1(dict_data: dict, expected_result: dict):
     assert define_invariants_of_dict(dict_data) == expected_result
+
+
+@pytest.mark.parametrize(
+    'dict_data, expected_result',
+    [
+        (
+            {
+                "name": "Wilfred Snow",
+                "account": {
+                    "loginAttempts": 3,
+                    "isBlocked": False,
+                    "lastPasswordChange": "2024-03-15",
+                    "preferredLanguage": "ru",
+                    "address": {
+                        "city": "Moscow",
+                        "street": "Lenina 1",
+                        "zipCode": "123456",
+                        "isVerified": True
+                    }
+                }
+            },
+            {
+                "name": Invariant.STRING_NOT_EMPTY,
+                "account": {
+                    "loginAttempts": Invariant.NUMBER_INTEGER,
+                    "isBlocked": Invariant.LITERAL_BOOLEAN,
+                    "lastPasswordChange": Invariant.STRING_NOT_EMPTY,
+                    "preferredLanguage": Invariant.STRING_NOT_EMPTY,
+                    "address": {
+                        "city": Invariant.STRING_NOT_EMPTY,
+                        "street": Invariant.STRING_NOT_EMPTY,
+                        "zipCode": Invariant.STRING_NOT_EMPTY,
+                        "isVerified": Invariant.LITERAL_BOOLEAN
+                    }
+                }
+            }
+        ),
+        (
+            {
+                "name": "Eva Kemp",
+                "account": {
+                    "loginAttempts": 0,
+                    "isBlocked": True,
+                    "lastPasswordChange": None,
+                    "preferredLanguage": "en",
+                    "address": {
+                        "city": "Saint Petersburg",
+                        "street": "",
+                        "zipCode": None,
+                        "isVerified": False
+                    }
+                }
+            },
+            {
+                "name": Invariant.STRING_NOT_EMPTY,
+                "account": {
+                    "loginAttempts": Invariant.NUMBER_INTEGER,
+                    "isBlocked": Invariant.LITERAL_BOOLEAN,
+                    "lastPasswordChange": Invariant.LITERAL_NULL,
+                    "preferredLanguage": Invariant.STRING_NOT_EMPTY,
+                    "address": {
+                        "city": Invariant.STRING_NOT_EMPTY,
+                        "street": Invariant.STRING_EMPTY,
+                        "zipCode": Invariant.LITERAL_NULL,
+                        "isVerified": Invariant.LITERAL_BOOLEAN
+                    }
+                }
+            }
+        )
+    ],
+    ids=[
+        'define_invariants_of_dict_on_nested_objects_depth_2',
+        'define_invariants_of_dict_on_nested_objects_depth_2_with_none_value'
+    ]
+)
+def test_define_invariants_of_dict_on_nested_objects_depth_2(dict_data: dict, expected_result: dict):
+    assert define_invariants_of_dict(dict_data) == expected_result
