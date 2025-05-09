@@ -16,7 +16,7 @@ class TypeInvariant(Enum):
     LITERAL_BOOLEAN = 'literal_boolean'
 
 
-def define_invariant_by_value(value: Any) -> TypeInvariant:
+def define_type_invariant_by_value(value: Any) -> TypeInvariant:
     match value:
         case bool():
             return TypeInvariant.LITERAL_BOOLEAN
@@ -36,7 +36,7 @@ def define_invariant_by_value(value: Any) -> TypeInvariant:
 
 def define_invariants_of_dict(dict_data: dict) -> dict[str, TypeInvariant]:
     return {
-        key: define_invariants_of_dict(value) if isinstance(value, dict) else define_invariant_by_value(value)
+        key: define_invariants_of_dict(value) if isinstance(value, dict) else define_type_invariant_by_value(value)
         for key, value in dict_data.items()
     }
 
