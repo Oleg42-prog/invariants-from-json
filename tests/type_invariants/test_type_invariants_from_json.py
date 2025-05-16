@@ -2,26 +2,9 @@ import json
 from invariants import TypeInvariant, type_invariants_from_json
 
 
-def test_type_invariants_from_json_on_flatten_objects():
+def test_type_invariants_from_json_on_flatten_objects(sample_users_list_json_string):
 
-    json_string = '''[
-        {
-            "name": "Wilfred Snow",
-            "is_admin": true,
-            "age": 25,
-            "salary": 125.25,
-            "workPosition": ""
-        },
-        {
-            "name": "Eva Kemp",
-            "is_admin": false,
-            "age": 16,
-            "salary": null,
-            "workPosition": "Developer"
-        }
-    ]
-    '''
-    json_data = json.loads(json_string)
+    json_data = json.loads(sample_users_list_json_string)
 
     expected_result = {
         'name': {TypeInvariant.STRING_NOT_EMPTY},
